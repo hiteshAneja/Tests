@@ -1,2 +1,2 @@
-# Tests
-Repository to place my test code.
+# Data Structures and algorithm class material
+
