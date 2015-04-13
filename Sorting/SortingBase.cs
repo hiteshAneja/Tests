@@ -13,7 +13,15 @@ namespace Sorting
             for (int i = 0; i < array.Length; i++)
 			{
                 Debug.WriteLine(array[i]);
+                Console.WriteLine(array[i]);
 			}
+        }
+
+        public void Swap(int[] array, int i, int j)
+        {
+            int temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
         }
     }
 }
