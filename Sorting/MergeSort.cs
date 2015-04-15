@@ -5,14 +5,15 @@ using System.Web;
 
 namespace Sorting
 {
-    public class MergeSort : SortingBase
+    public class MergeSort<T> : SortingBase<T> where T : IComparable<T>
     {
-        private void InsertionSort(int[] array)
+        private void InsertionSort(T[] array)
         {
-            for (int i = 1; i < array.Length; i++) {
-                for (int j = i; j > 0; j--) 
+            for (int i = 1; i < array.Length; i++)
+            {
+                for (int j = i; j > 0; j--)
                 {
-                    if (array[j - 1] > array[j])
+                    if (array[j - 1].CompareTo(array[j]) > 0)
                     {
                         Swap(array, j - 1, j);
                     }
@@ -24,7 +25,7 @@ namespace Sorting
             }
         }
 
-        public void Merge(int[] array, int[] left, int[] right)
+        public void Merge(T[] array, T[] left, T[] right)
         {
             int j = 0, k = 0;
 
@@ -33,24 +34,24 @@ namespace Sorting
             {
                 // If left array is already taken, pick the remaining right array items.
                 if (j >= left.Length) array[i] = right[k++];
-                
+
                 // If the right array is already taken, pick the remaining items from left array.
                 else if (k >= right.Length) array[i] = left[j++];
-                
+
                 // If both the arrays have item, pick the smallest one and add to the main array.
-                else if (left[j] < right[k]) array[i] = left[j++];
+                else if (left[j].CompareTo(right[k]) < 0) array[i] = left[j++];
                 else array[i] = right[k++];
             }
         }
 
-        public void Sort(int[] array)
+        public void Sort(T[] array)
         {
             if (array.Length > 1)
             {
                 // Split the left array into two halves.
                 int mid = array.Length / 2;
-                int[] left = new int[mid];
-                int[] right = new int[array.Length - mid];
+                T[] left = new T[mid];
+                T[] right = new T[array.Length - mid];
 
                 for (int i = 0; i < left.Length; i++)
                 {
@@ -77,7 +78,7 @@ namespace Sorting
         /// does not prove to be faster when it comes to working with small arrays,
         /// so for item less than ~4, we here by use insertion sort.
         /// </summary>
-        public void OptimumSort(int[] array)
+        public void OptimumSort(T[] array)
         {
             if (array.Length > 1)
             {
@@ -85,19 +86,19 @@ namespace Sorting
                 int mid = array.Length / 2;
 
                 // Create left array.
-                int[] left = new int[mid];
+                T[] left = new T[mid];
                 for (int i = 0; i < left.Length; i++)
                 {
                     left[i] = array[i];
                 }
 
                 // Create right array.
-                int[] right = new int[array.Length - mid];
+                T[] right = new T[array.Length - mid];
                 for (int i = 0; i < right.Length; i++)
                 {
                     right[i] = array[i + mid];
                 }
-                
+
                 // For smaller arrays than 4, use insertion sort.
                 if (mid < 4)
                 {
