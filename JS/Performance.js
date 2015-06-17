@@ -14,17 +14,21 @@
 
 
     /* Extend the window's performance API class to have some extra functions for logging. */
+
+    // Starts the mark and clears the previous mark with the same name.
     this.startMark = function (name) {
         performance.clearMarks(name + START, name + END);
         performance.mark(name + START);
     };
 
+    // Ends the mark and calculate the measure between this and the previous mark with the same name.
     this.endMark = function (name) {
         performance.mark(name + END);
         performance.clearMeasures(name);
         performance.measure(name, (name + START), (name + END));
     };
 
+    // Prints all the measures in the console.
     this.printMeasures = function (name) {
         var result = getEntries(name);
 
@@ -34,6 +38,8 @@
             });
         }
     };
+    
+    // Gets all the measures in an easy to use JSON object { name, duration }.
     this.getMeasures = function (name) {
         var response = [],
             result = getEntries(name);
