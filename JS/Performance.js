@@ -51,3 +51,40 @@
     };
 
 }.call(window.performance));
+
+
+/*
+How to use:
+function clickMe() {
+    window.performance.startMark('clickMe');
+    setTimeout(function () {
+        clickMe2();
+    }, 100);
+}
+function clickMe2 () {
+    window.performance.startMark('clickMe2');
+    setTimeout(function () {
+        window.performance.endMark('clickMe');
+        window.performance.endMark('clickMe2');
+    }, 100);
+}
+
+function print () {
+   // window.performance.print();
+   window.performance.printMeasures('clickMe2');
+}
+
+
+Result #######################
+clickMe:  101.72ms
+clickMe2:  201.66ms
+
+[{
+    "name":"clickMe",
+    "duration":101.51
+ },
+ {
+    "name":"clickMe2",
+    "duration":201.27
+ }]
+*/
